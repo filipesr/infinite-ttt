@@ -24,15 +24,14 @@
 
 .tttWinX {
   background-color: green !important;
-  color: white !important;
 }
 .tttWinO {
   background-color: red !important;
-  color: white !important;
 }
-.tttWinX,
-.tttWinO {
+.tttWinX span,
+.tttWinO span {
   color: white !important;
+  opacity: 1 !important;
 }
 .tttValueX {
   color: green;
