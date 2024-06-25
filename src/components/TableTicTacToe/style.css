@@ -1,0 +1,55 @@
+.tttTable {
+  width: 30.8rem;
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.tttCell {
+  width: 10rem;
+  height: 10rem;
+  background-color: gray;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12rem;
+}
+.tttCell:hover {
+  background-color: darkgray;
+}
+.tttLast {
+  opacity: 0.3;
+}
+
+.tttWinX {
+  background-color: green !important;
+  color: white !important;
+}
+.tttWinO {
+  background-color: red !important;
+  color: white !important;
+}
+.tttWinX,
+.tttWinO {
+  color: white !important;
+}
+.tttValueX {
+  color: green;
+}
+.tttValueO {
+  color: red;
+}
+.tttValueX,
+.tttValueO {
+  cursor: none !important;
+}
+.tttReset {
+  width: 100%;
+  background-color: white;
+  color: black;
+  font-size: larger;
+  font-weight: bold;
+  cursor: pointer;
+}
