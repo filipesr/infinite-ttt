@@ -1,14 +1,13 @@
 .tttTable {
-  width: 30.8rem;
-  background-color: black;
+  width: 18.8rem;
   display: flex;
   flex-direction: row;
   gap: 0.4rem;
   flex-wrap: wrap;
 }
 .tttCell {
-  width: 10rem;
-  height: 10rem;
+  width: 6rem;
+  height: 6rem;
   background-color: gray;
   cursor: pointer;
   display: flex;
@@ -47,6 +46,8 @@
 }
 .tttReset {
   width: 100%;
+  height: 3rem;
+  margin-top: 3rem;
   background-color: white;
   color: black;
   font-size: larger;

@@ -71,7 +71,7 @@ export const TableTicTacToe = (props: propsTableTicTacToe) => {
           </span>
         </div>
       ))}
-      <div className="tttReset" onClick={handleReset}>
+      <div className="tttReset tttCell" onClick={handleReset}>
         reset
       </div>
     </div>
