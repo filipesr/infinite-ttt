@@ -6,62 +6,75 @@ export interface propsTableTicTacToe {
   initialValues?: string[];
   initialValue?: string;
 }
+interface propsData {
+  values: string[];
+  playerSymbol: string;
+  hist: number[];
+  winner: number[];
+}
 export const TableTicTacToe = (props: propsTableTicTacToe) => {
-  const [values, setValues] = useState(
-    props.initialValues ?? ["", "", "", "", "", "", "", "", ""]
-  );
-  const [value, setValue] = useState(props.initialValue ?? "X");
-  const [hist, setHist] = useState<number[]>([]);
+  const [data, setData] = useState<propsData>({
+    values: props.initialValues ?? ["", "", "", "", "", "", "", "", ""],
+    playerSymbol: props.initialValue ?? "X",
+    hist: [],
+    winner: [],
+  });
 
-  const winner = checkWin(values, value);
-  if (winner.length) console.log(`Winner: ${value}`);
+  const { values, playerSymbol, hist, winner } = data;
+  if (winner.length) console.log(`Winner: ${playerSymbol}`);
 
-  const addHist = (index: number) => {
-    setHist((old) => {
-      if (old.length < MAX_HIST) return [index, ...old];
-      const remIndex = old.pop() || -1;
-      setValues((values) => {
-        values[remIndex] = "";
-        return values;
-      });
-      return [index, ...old];
-    });
+  const addHist = (index: number, hist: number[]) => {
+    if (hist.includes(index)) return hist;
+    if (hist.length > MAX_HIST) {
+      values[hist[0]] = "";
+      hist.shift();
+    }
+    hist.push(index);
+    return hist;
   };
 
   const handleClick = (index: number) => {
     if (winner.length) return;
     const cellValue = values[index];
     if (cellValue == "") {
-      const newCellValue = value == "X" ? "O" : "X";
-      setValues((old) => {
-        old[index] = value;
-        if (!checkWin(old, value).length) setValue(newCellValue);
-        return old;
+      const NewPlayerSymbol = playerSymbol == "X" ? "O" : "X";
+      setData(({ values, hist, playerSymbol }) => {
+        values[index] = playerSymbol;
+        // const NewPlayerSymbol = !checkWin(values, playerSymbol).length ? playerSymbol : newCellValue;
+        return {
+          values,
+          hist: addHist(index, hist),
+          playerSymbol: NewPlayerSymbol,
+          winner: checkWin(values, playerSymbol),
+        };
       });
-      addHist(index);
     }
   };
 
   const handleReset = () => {
-    setValues(["", "", "", "", "", "", "", "", ""]);
-    setValue(value == "X" ? "O" : "X");
-    setHist([]);
+    setData({
+      values: ["", "", "", "", "", "", "", "", ""],
+      playerSymbol,
+      hist: [],
+      winner: [],
+    });
   };
 
-  // console.log(
-  //   hist.length,
-  //   hist[MAX_HIST - 1],
-  //   values[hist[MAX_HIST - 1]],
-  //   hist
-  // );
-  const nextHistExclude = hist.length > MAX_HIST - 1 ? hist[MAX_HIST - 1] : -1;
+  console.log(
+    hist.length,
+    hist[MAX_HIST - 1],
+    values[hist[MAX_HIST - 1]],
+    hist,
+    winner
+  );
+  const nextHistExclude = hist.length > MAX_HIST ? hist[0] : -1;
   /// verificar a logica do histórico
   return (
-    <div className="tttTable">
+    <div className="tttTable noselect">
       {values.map((value, index) => (
         <div
           key={index}
-          className={`tttCell tttValue${value} ${
+          className={`tttCell tttIndex${index} tttValue${value} ${
             winner?.includes(index) ? ` tttWin${value}` : ""
           } `}
           onClick={() => handleClick(index)}
